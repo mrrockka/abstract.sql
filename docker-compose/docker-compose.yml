@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    command: "--general-log=1 --max-binlog-size=2048000 --general-log-file=/logs/general.log --log_error=/logs/error.log --log_error_verbosity=3"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "user"
+    volumes:
+      - "../docker/init:/docker-entrypoint-initdb.d"
+      - "../logs:/logs"
+
